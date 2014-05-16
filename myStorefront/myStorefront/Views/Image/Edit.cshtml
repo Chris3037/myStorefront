@@ -1,4 +1,4 @@
-﻿@model myStorefront.Models.Supplier
+﻿@model myStorefront.Models.Image
 
 @{
     ViewBag.Title = "Edit";
@@ -12,24 +12,24 @@
     @Html.ValidationSummary(true)
 
     <fieldset>
-        <legend>Supplier</legend>
+        <legend>Image</legend>
 
-        @Html.HiddenFor(model => model.SupplierID)
-
-        <div class="editor-label">
-            @Html.LabelFor(model => model.SupplierName)
-        </div>
-        <div class="editor-field">
-            @Html.EditorFor(model => model.SupplierName)
-            @Html.ValidationMessageFor(model => model.SupplierName)
-        </div>
+        @Html.HiddenFor(model => model.ImageID)
 
         <div class="editor-label">
-            @Html.LabelFor(model => model.SupplierDescription)
+            @Html.LabelFor(model => model.ProductID, "Product")
         </div>
         <div class="editor-field">
-            @Html.EditorFor(model => model.SupplierDescription)
-            @Html.ValidationMessageFor(model => model.SupplierDescription)
+            @Html.DropDownList("ProductID", String.Empty)
+            @Html.ValidationMessageFor(model => model.ProductID)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.ImageName)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.ImageName)
+            @Html.ValidationMessageFor(model => model.ImageName)
         </div>
 
         <div class="editor-label">
@@ -38,6 +38,14 @@
         <div class="editor-field">
             @Html.EditorFor(model => model.ImageURL)
             @Html.ValidationMessageFor(model => model.ImageURL)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.ImageDescription)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.ImageDescription)
+            @Html.ValidationMessageFor(model => model.ImageDescription)
         </div>
 
         <p>

@@ -50,12 +50,12 @@
             <PropertyRef Name="ProductID" />
           </Key>
           <Property Name="ProductID" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
-          <Property Name="CategoryID" Type="int" Nullable="false" />
-          <Property Name="SupplierID" Type="int" Nullable="false" />
+          <Property Name="CategoryID" Type="int" />
+          <Property Name="SupplierID" Type="int" />
           <Property Name="ProductName" Type="nvarchar" Nullable="false" MaxLength="100" />
           <Property Name="ProductPrice" Type="money" Nullable="false" />
           <Property Name="ProductQuantity" Type="int" Nullable="false" />
-          <Property Name="ProductDescription" Type="nvarchar" Nullable="false" MaxLength="500" />
+          <Property Name="ProductDescription" Type="nvarchar" MaxLength="500" />
         </EntityType>
         <EntityType Name="Suppliers">
           <Key>
@@ -63,7 +63,7 @@
           </Key>
           <Property Name="SupplierID" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
           <Property Name="SupplierName" Type="nvarchar" Nullable="false" MaxLength="100" />
-          <Property Name="SupplierDescription" Type="nvarchar" Nullable="false" MaxLength="500" />
+          <Property Name="SupplierDescription" Type="nvarchar" MaxLength="500" />
           <Property Name="ImageURL" Type="nvarchar" MaxLength="100" />
         </EntityType>
         <Association Name="FK_Categories_Categories">
@@ -93,7 +93,7 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_Products_Categories">
-          <End Role="Categories" Type="myStorefrontModel.Store.Categories" Multiplicity="1">
+          <End Role="Categories" Type="myStorefrontModel.Store.Categories" Multiplicity="0..1">
             <OnDelete Action="Cascade" />
           </End>
           <End Role="Products" Type="myStorefrontModel.Store.Products" Multiplicity="*" />
@@ -107,7 +107,7 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_Products_Suppliers">
-          <End Role="Suppliers" Type="myStorefrontModel.Store.Suppliers" Multiplicity="1">
+          <End Role="Suppliers" Type="myStorefrontModel.Store.Suppliers" Multiplicity="0..1">
             <OnDelete Action="Cascade" />
           </End>
           <End Role="Products" Type="myStorefrontModel.Store.Products" Multiplicity="*" />
@@ -129,21 +129,21 @@
           <EntitySet Name="Images" EntityType="myStorefrontModel.Image" />
           <EntitySet Name="Products" EntityType="myStorefrontModel.Product" />
           <EntitySet Name="Suppliers" EntityType="myStorefrontModel.Supplier" />
-          <AssociationSet Name="FK_Products_Categories" Association="myStorefrontModel.FK_Products_Categories">
-            <End Role="Categories" EntitySet="Categories" />
-            <End Role="Products" EntitySet="Products" />
-          </AssociationSet>
           <AssociationSet Name="FK_Images_Products" Association="myStorefrontModel.FK_Images_Products">
             <End Role="Products" EntitySet="Products" />
             <End Role="Images" EntitySet="Images" />
           </AssociationSet>
-          <AssociationSet Name="FK_Products_Suppliers" Association="myStorefrontModel.FK_Products_Suppliers">
-            <End Role="Suppliers" EntitySet="Suppliers" />
-            <End Role="Products" EntitySet="Products" />
-          </AssociationSet>
           <AssociationSet Name="FK_Categories_Categories" Association="myStorefrontModel.FK_Categories_Categories">
             <End Role="Category" EntitySet="Categories" />
             <End Role="Category1" EntitySet="Categories" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Products_Categories" Association="myStorefrontModel.FK_Products_Categories">
+            <End Role="Category" EntitySet="Categories" />
+            <End Role="Product" EntitySet="Products" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Products_Suppliers" Association="myStorefrontModel.FK_Products_Suppliers">
+            <End Role="Supplier" EntitySet="Suppliers" />
+            <End Role="Product" EntitySet="Products" />
           </AssociationSet>
         </EntityContainer>
         <EntityType Name="Category">
@@ -153,9 +153,9 @@
           <Property Name="CategoryID" Type="Int32" Nullable="false" p1:StoreGeneratedPattern="Identity" />
           <Property Name="CategoryName" Type="String" Nullable="false" MaxLength="100" Unicode="true" FixedLength="false" />
           <Property Name="ParentID" Type="Int32" />
-          <NavigationProperty Name="Products" Relationship="myStorefrontModel.FK_Products_Categories" FromRole="Categories" ToRole="Products" />
-          <NavigationProperty Name="Categories1" Relationship="myStorefrontModel.FK_Categories_Categories" FromRole="Category" ToRole="Category1" />
-          <NavigationProperty Name="Category1" Relationship="myStorefrontModel.FK_Categories_Categories" FromRole="Category1" ToRole="Category" />
+          <NavigationProperty Name="SubCategories" Relationship="myStorefrontModel.FK_Categories_Categories" FromRole="Category" ToRole="Category1" />
+          <NavigationProperty Name="ParentCategory" Relationship="myStorefrontModel.FK_Categories_Categories" FromRole="Category1" ToRole="Category" />
+          <NavigationProperty Name="Products" Relationship="myStorefrontModel.FK_Products_Categories" FromRole="Category" ToRole="Product" />
         </EntityType>
         <EntityType Name="Image">
           <Key>
@@ -173,15 +173,15 @@
             <PropertyRef Name="ProductID" />
           </Key>
           <Property Name="ProductID" Type="Int32" Nullable="false" p1:StoreGeneratedPattern="Identity" />
-          <Property Name="CategoryID" Type="Int32" Nullable="false" />
-          <Property Name="SupplierID" Type="Int32" Nullable="false" />
+          <Property Name="CategoryID" Type="Int32" />
+          <Property Name="SupplierID" Type="Int32" />
           <Property Name="ProductName" Type="String" Nullable="false" MaxLength="100" Unicode="true" FixedLength="false" />
           <Property Name="ProductPrice" Type="Decimal" Nullable="false" Precision="19" Scale="4" />
           <Property Name="ProductQuantity" Type="Int32" Nullable="false" />
-          <Property Name="ProductDescription" Type="String" Nullable="false" MaxLength="500" Unicode="true" FixedLength="false" />
-          <NavigationProperty Name="Category" Relationship="myStorefrontModel.FK_Products_Categories" FromRole="Products" ToRole="Categories" />
+          <Property Name="ProductDescription" Type="String" MaxLength="500" Unicode="true" FixedLength="false" />
           <NavigationProperty Name="Images" Relationship="myStorefrontModel.FK_Images_Products" FromRole="Products" ToRole="Images" />
-          <NavigationProperty Name="Supplier" Relationship="myStorefrontModel.FK_Products_Suppliers" FromRole="Products" ToRole="Suppliers" />
+          <NavigationProperty Name="Category" Relationship="myStorefrontModel.FK_Products_Categories" FromRole="Product" ToRole="Category" />
+          <NavigationProperty Name="Supplier" Relationship="myStorefrontModel.FK_Products_Suppliers" FromRole="Product" ToRole="Supplier" />
         </EntityType>
         <EntityType Name="Supplier">
           <Key>
@@ -189,24 +189,10 @@
           </Key>
           <Property Name="SupplierID" Type="Int32" Nullable="false" p1:StoreGeneratedPattern="Identity" />
           <Property Name="SupplierName" Type="String" Nullable="false" MaxLength="100" Unicode="true" FixedLength="false" />
-          <Property Name="SupplierDescription" Type="String" Nullable="false" MaxLength="500" Unicode="true" FixedLength="false" />
+          <Property Name="SupplierDescription" Type="String" MaxLength="500" Unicode="true" FixedLength="false" />
           <Property Name="ImageURL" Type="String" MaxLength="100" Unicode="true" FixedLength="false" />
-          <NavigationProperty Name="Products" Relationship="myStorefrontModel.FK_Products_Suppliers" FromRole="Suppliers" ToRole="Products" />
+          <NavigationProperty Name="Products" Relationship="myStorefrontModel.FK_Products_Suppliers" FromRole="Supplier" ToRole="Product" />
         </EntityType>
-        <Association Name="FK_Products_Categories">
-          <End Role="Categories" Type="myStorefrontModel.Category" Multiplicity="1">
-            <OnDelete Action="Cascade" />
-          </End>
-          <End Role="Products" Type="myStorefrontModel.Product" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Categories">
-              <PropertyRef Name="CategoryID" />
-            </Principal>
-            <Dependent Role="Products">
-              <PropertyRef Name="CategoryID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <Association Name="FK_Images_Products">
           <End Role="Products" Type="myStorefrontModel.Product" Multiplicity="1">
             <OnDelete Action="Cascade" />
@@ -221,20 +207,6 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_Products_Suppliers">
-          <End Role="Suppliers" Type="myStorefrontModel.Supplier" Multiplicity="1">
-            <OnDelete Action="Cascade" />
-          </End>
-          <End Role="Products" Type="myStorefrontModel.Product" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Suppliers">
-              <PropertyRef Name="SupplierID" />
-            </Principal>
-            <Dependent Role="Products">
-              <PropertyRef Name="SupplierID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <Association Name="FK_Categories_Categories">
           <End Type="myStorefrontModel.Category" Role="Category" Multiplicity="0..1" />
           <End Type="myStorefrontModel.Category" Role="Category1" Multiplicity="*" />
@@ -244,6 +216,34 @@
             </Principal>
             <Dependent Role="Category1">
               <PropertyRef Name="ParentID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Products_Categories">
+          <End Type="myStorefrontModel.Category" Role="Category" Multiplicity="0..1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Type="myStorefrontModel.Product" Role="Product" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Category">
+              <PropertyRef Name="CategoryID" />
+            </Principal>
+            <Dependent Role="Product">
+              <PropertyRef Name="CategoryID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Products_Suppliers">
+          <End Type="myStorefrontModel.Supplier" Role="Supplier" Multiplicity="0..1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Type="myStorefrontModel.Product" Role="Product" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Supplier">
+              <PropertyRef Name="SupplierID" />
+            </Principal>
+            <Dependent Role="Product">
+              <PropertyRef Name="SupplierID" />
             </Dependent>
           </ReferentialConstraint>
         </Association>

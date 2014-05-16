@@ -1,0 +1,17 @@
+﻿@model myStorefront.Models.Category
+
+@{
+    ViewBag.Title = "ByCategory";
+}
+
+<h2>Browsing @Model.CategoryName</h2>
+
+<!-- breadcrumbs // calls the Breadcrumbs
+    action on the home controller, passing
+    in the ID of the Category we are crrently looking at -->
+@Html.Action("breadcrumbs", "home", new { id = Model.CategoryID })
+
+@foreach (var product in Model.Products)
+{
+    @Html.Partial("productListing", product)
+}

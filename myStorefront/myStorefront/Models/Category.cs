@@ -16,16 +16,16 @@ namespace myStorefront.Models
     {
         public Category()
         {
+            this.SubCategories = new HashSet<Category>();
             this.Products = new HashSet<Product>();
-            this.Categories1 = new HashSet<Category>();
         }
     
         public int CategoryID { get; set; }
         public string CategoryName { get; set; }
         public Nullable<int> ParentID { get; set; }
     
+        public virtual ICollection<Category> SubCategories { get; set; }
+        public virtual Category ParentCategory { get; set; }
         public virtual ICollection<Product> Products { get; set; }
-        public virtual ICollection<Category> Categories1 { get; set; }
-        public virtual Category Category1 { get; set; }
     }
 }

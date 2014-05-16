@@ -1,7 +1,8 @@
 ﻿@model IEnumerable<myStorefront.Models.Product>
 
 @{
-    ViewBag.Title = "Index";
+    ViewBag.Title = "Products";
+    Layout = "~/Views/Shared/_LayoutDash.cshtml";
 }
 
 <h2>Index</h2>
@@ -43,7 +44,7 @@
         <td>
             @Html.DisplayFor(modelItem => item.ProductQuantity)
         </td>
-        <td>
+        <td style="width: 1000px">
             @Html.DisplayFor(modelItem => item.ProductDescription)
         </td>
         <td>

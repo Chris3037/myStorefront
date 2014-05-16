@@ -20,15 +20,15 @@ namespace myStorefront.Models
         }
     
         public int ProductID { get; set; }
-        public int CategoryID { get; set; }
-        public int SupplierID { get; set; }
+        public Nullable<int> CategoryID { get; set; }
+        public Nullable<int> SupplierID { get; set; }
         public string ProductName { get; set; }
         public decimal ProductPrice { get; set; }
         public int ProductQuantity { get; set; }
         public string ProductDescription { get; set; }
     
-        public virtual Category Category { get; set; }
         public virtual ICollection<Image> Images { get; set; }
+        public virtual Category Category { get; set; }
         public virtual Supplier Supplier { get; set; }
     }
 }

@@ -8,13 +8,11 @@
     @Scripts.Render("~/bundles/modernizr")
 </head>
 <body>
-    <a href="@Url.Action("index", "product")">Dashboard</a>
-    <header>
-        <h1>Storefront</h1>
-        <nav>
-            @Html.Action("navigation", "home")
-        </nav>
-    </header>
+    <a href="@Url.Action("index", "home")">Home</a>
+    <a href="@Url.Action("index", "product")">Products</a>
+    <a href="@Url.Action("index", "Category")">Categories</a>
+    <a href="@Url.Action("index", "Supplier")">Suppliers</a>
+    <a href="@Url.Action("index", "Image")">Images</a>
     
     @RenderBody()
 

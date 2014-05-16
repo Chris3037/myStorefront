@@ -1,0 +1,16 @@
+﻿@model IEnumerable<myStorefront.Models.Category>
+
+<ul>
+    <li>
+        <a href="@Url.Action("index", "home")">Home
+        </a>
+    </li>
+    @foreach (var item in Model)
+    {
+        <li>
+            <a href="@Url.Action("ByCategory", "shop", new { id = item.CategoryID })">
+            @item.CategoryName
+            </a>
+        </li>
+    }
+</ul>

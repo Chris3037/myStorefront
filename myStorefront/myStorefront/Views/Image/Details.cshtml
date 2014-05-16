@@ -1,0 +1,44 @@
+﻿@model myStorefront.Models.Image
+
+@{
+    ViewBag.Title = "Details";
+    Layout = "~/Views/Shared/_LayoutDash.cshtml";
+}
+
+<h2>Details</h2>
+
+<fieldset>
+    <legend>Image</legend>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.Product.ProductName)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.Product.ProductName)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.ImageName)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.ImageName)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.ImageURL)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.ImageURL)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.ImageDescription)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.ImageDescription)
+    </div>
+</fieldset>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id=Model.ImageID }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>
