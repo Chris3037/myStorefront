@@ -140,6 +140,9 @@
     <Compile Include="Models\Category.cs">
       <DependentUpon>ProductDataModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\GetProductsByCategoryID_Result.cs">
+      <DependentUpon>ProductDataModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\Image.cs">
       <DependentUpon>ProductDataModel.tt</DependentUpon>
     </Compile>
@@ -297,6 +300,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Content\images\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config" />

@@ -2,7 +2,7 @@
 <ul>
     @foreach (var category in Model)
     {
-        <li><a href="@Url.Action("ByCategory", "Shop", new {id = category.CategoryID})">@category.CategoryName</a>
+        <li class="nav"><a href="@Url.Action("ByCategory", "Shop", new {id = category.CategoryID})">@category.CategoryName</a>
             @if (category.SubCategories.Any())
             {
                 @Html.Partial("Navigation", category.SubCategories)

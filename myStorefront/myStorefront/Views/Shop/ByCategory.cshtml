@@ -11,7 +11,7 @@
     in the ID of the Category we are crrently looking at -->
 @Html.Action("breadcrumbs", "home", new { id = Model.CategoryID })
 
-@foreach (var product in Model.Products)
+@foreach (var product in Model.AllProducts)
 {
     @Html.Partial("productListing", product)
 }

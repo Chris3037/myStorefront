@@ -24,8 +24,8 @@ namespace myStorefront.Controllers
         {
             //If you want to return only one item
             var category = db.Categories.Find(id);
+            category.AllProducts = db.GetProductsByCategoryID(id).ToList();
             return View(category);
         }
-
     }
 }

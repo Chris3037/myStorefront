@@ -120,6 +120,9 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Function Name="GetProductsByCategoryID" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="CategoryID" Type="int" Mode="In" />
+        </Function>
       </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
@@ -145,6 +148,9 @@
             <End Role="Supplier" EntitySet="Suppliers" />
             <End Role="Product" EntitySet="Products" />
           </AssociationSet>
+          <FunctionImport Name="GetProductsByCategoryID" EntitySet="Products" ReturnType="Collection(myStorefrontModel.Product)">
+            <Parameter Name="CategoryID" Mode="In" Type="Int32" />
+          </FunctionImport>
         </EntityContainer>
         <EntityType Name="Category">
           <Key>
@@ -247,6 +253,15 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <ComplexType Name="GetProductsByCategoryID_Result">
+          <Property Type="Int32" Name="ProductID" Nullable="false" />
+          <Property Type="Int32" Name="CategoryID" Nullable="true" />
+          <Property Type="Int32" Name="SupplierID" Nullable="true" />
+          <Property Type="String" Name="ProductName" Nullable="false" MaxLength="100" />
+          <Property Type="Decimal" Name="ProductPrice" Nullable="false" Precision="19" />
+          <Property Type="Int32" Name="ProductQuantity" Nullable="false" />
+          <Property Type="String" Name="ProductDescription" Nullable="true" MaxLength="500" />
+        </ComplexType>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -296,6 +311,8 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
+          <FunctionImportMapping FunctionImportName="GetProductsByCategoryID" FunctionName="myStorefrontModel.Store.GetProductsByCategoryID">
+          </FunctionImportMapping>
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>

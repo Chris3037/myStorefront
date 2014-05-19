@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Data;
 using System.Data.Entity;
+using System.IO;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
@@ -49,10 +50,22 @@ namespace myStorefront.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create(Image image)
+        public ActionResult Create(Image image, HttpPostedFileBase file)
         {
             if (ModelState.IsValid)
             {
+                // Verify that the user selected a file
+                if (file != null && file.ContentLength > 0)
+                {
+                    // extract only the fielname
+                    var fileName = Path.GetFileName(file.FileName);
+                    //Add a random GUID before the filename
+                    fileName = Guid.NewGuid().ToString() + "-" + fileName;
+                    // store the file inside ~/App_Data/uploads folder
+                    var path = Path.Combine(Server.MapPath("~/content/images/"), fileName);
+                    file.SaveAs(path);
+                    image.ImageURL = "/content/images/" + fileName;
+                }
                 db.Images.Add(image);
                 db.SaveChanges();
                 return RedirectToAction("Index");
