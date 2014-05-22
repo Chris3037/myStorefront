@@ -44,10 +44,10 @@ namespace myStorefront.Controllers
         }
 
         [HttpGet]
-        public ActionResult Logout()
+        public ActionResult Logout(string returnURL)
         {
             FormsAuthentication.SignOut();
-            return RedirectToAction("index", "home");
+            return Redirect(returnURL);
         }
 
         [HttpGet]
@@ -57,19 +57,19 @@ namespace myStorefront.Controllers
         }
 
         [HttpPost]
-        public ActionResult Login(Models.Login login)
+        public ActionResult Login(Models.Login login, string returnURL)
         {
             if (Membership.ValidateUser(login.Username, login.Password))
             {
                 //Valid User
                 FormsAuthentication.SetAuthCookie(login.Username, false);
-                return RedirectToAction("index", "home");
+                return Redirect(returnURL);
             }
             else
             {
                 //Invalid User
                 ViewBag.ErrorMessage = "Invalid user name or password. Please try again";
-                return View(login);
+                return Redirect(returnURL);
             }
         }
 

@@ -1,0 +1,43 @@
+﻿@model myStorefront.Models.Login
+
+@{
+    ViewBag.Title = "Login";
+}
+
+@if (!string.IsNullOrEmpty(ViewBag.ErrorMessage))
+{
+    <div class="error">
+        @ViewBag.ErrorMessage
+    </div>
+}
+
+@using (Html.BeginForm("login", "account", FormMethod.Post))
+{
+    @Html.AntiForgeryToken()
+    @Html.ValidationSummary(true)
+
+    @Html.Hidden("returnURL", Request.Url.LocalPath)
+
+            @Html.LabelFor(model => model.Username)
+            @Html.EditorFor(model => model.Username)
+            @Html.ValidationMessageFor(model => model.Username)
+            @Html.LabelFor(model => model.Password)
+            @Html.PasswordFor(model => model.Password)
+            @Html.ValidationMessageFor(model => model.Password)
+
+        <p>
+            <input type="submit" value="Login" />
+            <br />
+            <a href="@Url.Action("register", "account")">
+                Not registered? Click here!
+            </a>
+        </p>
+}
+
+<div>
+    @Html.ActionLink("Back to List", "Index")
+</div>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}

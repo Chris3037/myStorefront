@@ -15,13 +15,14 @@
     @if (Request.IsAuthenticated)
     {
         <span>Welcome @User.Identity.Name
-            <a href="@Url.Action("logout", "account")">Logout</a>
+            <a href="@Url.Action("logout", "account", new { returnURL = Request.Url.LocalPath })">Logout</a>
         </span>
     }
     else
     {
         <span>
-            <a href="@Url.Action("login", "account")">Login</a>
+            @*<a href="@Url.Action("login", "account")">Login</a>*@
+            @Html.Partial("login", new myStorefront.Models.Login())
         </span>
     }
     <header>
