@@ -2,28 +2,14 @@
 
 @{
     ViewBag.Title = "Details";
-    Layout = "~/Views/Shared/_LayoutDash.cshtml";
 }
+
+@ViewBag.SuccessMessage
 
 <h2>Details</h2>
 
 <fieldset>
     <legend>Product</legend>
-
-    <div class="display-label">
-         @Html.DisplayNameFor(model => model.Category.CategoryName)
-    </div>
-    <div class="display-field">
-        @Html.DisplayFor(model => model.Category.CategoryName)
-    </div>
-
-    <div class="display-label">
-         @Html.DisplayNameFor(model => model.Supplier.SupplierName)
-    </div>
-    <div class="display-field">
-        @Html.DisplayFor(model => model.Supplier.SupplierName)
-    </div>
-
     <div class="display-label">
          @Html.DisplayNameFor(model => model.ProductName)
     </div>
@@ -51,8 +37,13 @@
     <div class="display-field">
         @Html.DisplayFor(model => model.ProductDescription)
     </div>
+    <br />
+    <form>
+        Quantity: <input type="number" style="width:40px" name="quantity"/>
+        <input type="hidden" name="price" value="@Model.ProductPrice"/>
+        <input type="submit" value="Add to Cart"@Html.Action("GetOrderID", "cart")/>
+    </form>
 </fieldset>
-<p>
-    @Html.ActionLink("Edit", "Edit", new { id=Model.ProductID }) |
-    @Html.ActionLink("Back to List", "Index")
-</p>
+
+
+@**@

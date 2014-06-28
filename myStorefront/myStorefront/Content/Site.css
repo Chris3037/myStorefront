@@ -343,7 +343,6 @@ textarea {
   }
 }
 
-
 /*-----------------------------------------------------------*/
 
 .content {
@@ -396,4 +395,11 @@ textarea {
     background-color: #94fff5;
     text-decoration: underline;
     cursor: pointer;
+}
+
+.display-label {
+    font-weight: bold;
+}
+
+.login {
 }

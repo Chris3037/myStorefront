@@ -1,14 +1,25 @@
 ﻿@model IEnumerable<myStorefront.Models.Category>
 <ul>
-    @foreach (var category in Model)
-    {
-        <li class='has-sub'><a href="@Url.Action("ByCategory", "Shop", new { id = category.CategoryID })"><span>@category.CategoryName</span></a>
-            @if (category.SubCategories.Any())
+    <li class='active'><a href='@Url.Action("index", "home")'><span>Home</span></a></li>
+    <li class='has-sub'><a href='#'><span>Products</span></a>
+        <ul>
+            @foreach (var category in Model)
             {
-                <li>
-                    @Html.Partial("Navigation", category.SubCategories)
+                <li class='has-sub'><a href="@Url.Action("ByCategory", "Shop", new { id = category.CategoryID })"><span>@category.CategoryName</span></a>
+                    @if (category.SubCategories.Any())
+                    {
+                        @*<li class="has-sub"><a href="#"</a><span>
+                            @Html.Partial("Navigation", category.SubCategories)
+                        </span></li>*@
+                    }
+                    else
+                    {
+                        <li class="last"><span>
+                            @Html.Partial("Navigation", category.SubCategories)
+                        </span></li>
+                    }
                 </li>
             }
-        </li>
-    }
+
+        </ul>
 </ul>

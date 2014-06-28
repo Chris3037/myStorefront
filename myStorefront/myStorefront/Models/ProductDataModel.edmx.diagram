@@ -4,15 +4,28 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="5794e3a7b9ef4517b73ac44cdca3abf2" Name="Diagram1" ZoomLevel="86">
-        <EntityTypeShape EntityType="myStorefrontModel.Category" Width="1.5" PointX="0.75" PointY="1.5" IsExpanded="true" />
-        <EntityTypeShape EntityType="myStorefrontModel.Image" Width="1.5" PointX="5.25" PointY="1.375" IsExpanded="true" />
-        <EntityTypeShape EntityType="myStorefrontModel.Product" Width="1.5" PointX="3" PointY="1" IsExpanded="true" />
-        <EntityTypeShape EntityType="myStorefrontModel.Supplier" Width="1.5" PointX="0.75" PointY="5.5" IsExpanded="true" />
+      <Diagram DiagramId="5794e3a7b9ef4517b73ac44cdca3abf2" Name="Diagram1" ZoomLevel="123">
+        <EntityTypeShape EntityType="myStorefrontModel.Category" Width="1.5" PointX="5.75" PointY="10.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="myStorefrontModel.Image" Width="1.5" PointX="10.25" PointY="7.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="myStorefrontModel.Product" Width="1.5" PointX="8" PointY="7" IsExpanded="true" />
+        <EntityTypeShape EntityType="myStorefrontModel.Supplier" Width="1.5" PointX="5.75" PointY="7.5" IsExpanded="true" />
         <AssociationConnector Association="myStorefrontModel.FK_Images_Products" ManuallyRouted="false" />
         <AssociationConnector Association="myStorefrontModel.FK_Categories_Categories" />
         <AssociationConnector Association="myStorefrontModel.FK_Products_Categories" />
         <AssociationConnector Association="myStorefrontModel.FK_Products_Suppliers" />
+        <EntityTypeShape EntityType="myStorefrontModel.Address" Width="1.5" PointX="3" PointY="1.75" />
+        <EntityTypeShape EntityType="myStorefrontModel.Customer" Width="1.5" PointX="0.75" PointY="2.375" />
+        <EntityTypeShape EntityType="myStorefrontModel.OrderLine" Width="1.5" PointX="7.5" PointY="2.375" />
+        <EntityTypeShape EntityType="myStorefrontModel.Order" Width="1.5" PointX="5.25" PointY="1.125" />
+        <EntityTypeShape EntityType="myStorefrontModel.Payment" Width="1.5" PointX="3" PointY="7" />
+        <EntityTypeShape EntityType="myStorefrontModel.Shipment" Width="1.5" PointX="3" PointY="11.25" />
+        <AssociationConnector Association="myStorefrontModel.FK_Addresses_Customers" />
+        <AssociationConnector Association="myStorefrontModel.FK_Orders_Addresses" />
+        <AssociationConnector Association="myStorefrontModel.FK_Orders_Addresses1" />
+        <AssociationConnector Association="myStorefrontModel.FK_Orders_Customers" />
+        <AssociationConnector Association="myStorefrontModel.FK_OrderLines_Orders" />
+        <AssociationConnector Association="myStorefrontModel.FK_Orders_Payments" />
+        <AssociationConnector Association="myStorefrontModel.FK_Orders_Shipments" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

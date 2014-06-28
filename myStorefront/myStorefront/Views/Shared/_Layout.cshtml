@@ -10,8 +10,15 @@
     @Scripts.Render("~/bundles/modernizr")
 </head>
 <body>
+    <header>
+@*        <h1>Storefront</h1>*@
+        <nav id="cssmenu">
+            @Html.Action("navigation", "home")
+        </nav>
+    </header>
     <a href="@Url.Action("index", "product")">Dashboard</a>
     <br />
+    <div class="login"
     @if (Request.IsAuthenticated)
     {
         <span>Welcome @User.Identity.Name
@@ -25,13 +32,7 @@
             @Html.Partial("login", new myStorefront.Models.Login())
         </span>
     }
-    <header>
-        <h1>Storefront</h1>
-        <nav class="cssmenu">
-            <li class='active'><a href='@Url.Action("index", "home")'><span>Home</span></a></li>
-            @Html.Action("navigation", "home")
-        </nav>
-    </header>
+        </div>
     <div class="content">@RenderBody()</div>
 
     @Scripts.Render("~/bundles/jquery")

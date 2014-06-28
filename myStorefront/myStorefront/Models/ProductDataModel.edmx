@@ -6,10 +6,20 @@
     <edmx:StorageModels>
     <Schema Namespace="myStorefrontModel.Store" Alias="Self" Provider="System.Data.SqlClient" ProviderManifestToken="2008" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityContainer Name="myStorefrontModelStoreContainer">
+          <EntitySet Name="Addresses" EntityType="myStorefrontModel.Store.Addresses" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="Categories" EntityType="myStorefrontModel.Store.Categories" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="Customers" EntityType="myStorefrontModel.Store.Customers" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="Images" EntityType="myStorefrontModel.Store.Images" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="OrderLines" EntityType="myStorefrontModel.Store.OrderLines" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="Orders" EntityType="myStorefrontModel.Store.Orders" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="Payments" EntityType="myStorefrontModel.Store.Payments" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="Products" EntityType="myStorefrontModel.Store.Products" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="Shipments" EntityType="myStorefrontModel.Store.Shipments" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="Suppliers" EntityType="myStorefrontModel.Store.Suppliers" store:Type="Tables" Schema="dbo" />
+          <AssociationSet Name="FK_Addresses_Customers" Association="myStorefrontModel.Store.FK_Addresses_Customers">
+            <End Role="Customers" EntitySet="Customers" />
+            <End Role="Addresses" EntitySet="Addresses" />
+          </AssociationSet>
           <AssociationSet Name="FK_Categories_Categories" Association="myStorefrontModel.Store.FK_Categories_Categories">
             <End Role="Categories" EntitySet="Categories" />
             <End Role="Categories1" EntitySet="Categories" />
@@ -17,6 +27,30 @@
           <AssociationSet Name="FK_Images_Products" Association="myStorefrontModel.Store.FK_Images_Products">
             <End Role="Products" EntitySet="Products" />
             <End Role="Images" EntitySet="Images" />
+          </AssociationSet>
+          <AssociationSet Name="FK_OrderLines_Orders" Association="myStorefrontModel.Store.FK_OrderLines_Orders">
+            <End Role="Orders" EntitySet="Orders" />
+            <End Role="OrderLines" EntitySet="OrderLines" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Orders_Addresses" Association="myStorefrontModel.Store.FK_Orders_Addresses">
+            <End Role="Addresses" EntitySet="Addresses" />
+            <End Role="Orders" EntitySet="Orders" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Orders_Addresses1" Association="myStorefrontModel.Store.FK_Orders_Addresses1">
+            <End Role="Addresses" EntitySet="Addresses" />
+            <End Role="Orders" EntitySet="Orders" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Orders_Customers" Association="myStorefrontModel.Store.FK_Orders_Customers">
+            <End Role="Customers" EntitySet="Customers" />
+            <End Role="Orders" EntitySet="Orders" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Orders_Payments" Association="myStorefrontModel.Store.FK_Orders_Payments">
+            <End Role="Payments" EntitySet="Payments" />
+            <End Role="Orders" EntitySet="Orders" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Orders_Shipments" Association="myStorefrontModel.Store.FK_Orders_Shipments">
+            <End Role="Shipments" EntitySet="Shipments" />
+            <End Role="Orders" EntitySet="Orders" />
           </AssociationSet>
           <AssociationSet Name="FK_Products_Categories" Association="myStorefrontModel.Store.FK_Products_Categories">
             <End Role="Categories" EntitySet="Categories" />
@@ -27,6 +61,21 @@
             <End Role="Products" EntitySet="Products" />
           </AssociationSet>
         </EntityContainer>
+        <EntityType Name="Addresses">
+          <Key>
+            <PropertyRef Name="AddressID" />
+          </Key>
+          <Property Name="AddressID" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="Address1" Type="nvarchar" Nullable="false" MaxLength="100" />
+          <Property Name="Address2" Type="nvarchar" MaxLength="100" />
+          <Property Name="City" Type="nvarchar" Nullable="false" MaxLength="100" />
+          <Property Name="State" Type="nvarchar" Nullable="false" MaxLength="2" />
+          <Property Name="PostalCode" Type="nvarchar" Nullable="false" MaxLength="10" />
+          <Property Name="CustomerID" Type="int" Nullable="false" />
+          <Property Name="Type" Type="nvarchar" Nullable="false" MaxLength="50" />
+          <Property Name="Notes" Type="nvarchar" MaxLength="200" />
+          <Property Name="Name" Type="nvarchar" Nullable="false" MaxLength="50" />
+        </EntityType>
         <EntityType Name="Categories">
           <Key>
             <PropertyRef Name="CategoryID" />
@@ -34,6 +83,15 @@
           <Property Name="CategoryID" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
           <Property Name="CategoryName" Type="nvarchar" Nullable="false" MaxLength="100" />
           <Property Name="ParentID" Type="int" />
+        </EntityType>
+        <EntityType Name="Customers">
+          <Key>
+            <PropertyRef Name="CustomerID" />
+          </Key>
+          <Property Name="Username" Type="nvarchar" Nullable="false" MaxLength="50" />
+          <Property Name="CustomerID" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="FirstName" Type="nvarchar" MaxLength="50" />
+          <Property Name="LastName" Type="nvarchar" MaxLength="50" />
         </EntityType>
         <EntityType Name="Images">
           <Key>
@@ -44,6 +102,48 @@
           <Property Name="ImageName" Type="nvarchar" Nullable="false" MaxLength="100" />
           <Property Name="ImageURL" Type="nvarchar" Nullable="false" MaxLength="100" />
           <Property Name="ImageDescription" Type="nvarchar" MaxLength="300" />
+        </EntityType>
+        <EntityType Name="OrderLines">
+          <Key>
+            <PropertyRef Name="OrderLineID" />
+          </Key>
+          <Property Name="OrderLineID" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="OrderID" Type="int" Nullable="false" />
+          <Property Name="ProductID" Type="int" Nullable="false" />
+          <Property Name="Quantity" Type="int" Nullable="false" />
+          <Property Name="UnitPrice" Type="money" Nullable="false" />
+          <Property Name="Subtotal" Type="money" StoreGeneratedPattern="Computed" />
+        </EntityType>
+        <EntityType Name="Orders">
+          <Key>
+            <PropertyRef Name="OrderID" />
+          </Key>
+          <Property Name="OrderID" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="ShippingAddressID" Type="int" />
+          <Property Name="PaymentID" Type="int" />
+          <Property Name="BillingAddressID" Type="int" />
+          <Property Name="ShippingID" Type="int" />
+          <Property Name="CustomerID" Type="int" />
+          <Property Name="TotalPrice" Type="money" Nullable="false" />
+          <Property Name="SalesTax" Type="money" Nullable="false" />
+          <Property Name="Subtotal" Type="money" Nullable="false" />
+          <Property Name="dtCreated" Type="datetime" Nullable="false" />
+          <Property Name="dtCompleted" Type="datetime" />
+          <Property Name="dtShipped" Type="datetime" />
+          <Property Name="ShippingCost" Type="money" Nullable="false" />
+          <Property Name="Status" Type="nvarchar" Nullable="false" MaxLength="10" />
+        </EntityType>
+        <EntityType Name="Payments">
+          <Key>
+            <PropertyRef Name="PaymentID" />
+          </Key>
+          <Property Name="PaymentID" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="CCNumber" Type="nvarchar" Nullable="false" MaxLength="50" />
+          <Property Name="CCVC" Type="int" Nullable="false" />
+          <Property Name="CCExpiryMonth" Type="nvarchar" Nullable="false" MaxLength="2" />
+          <Property Name="CCExpiry" Type="nvarchar" Nullable="false" MaxLength="4" />
+          <Property Name="Name" Type="nvarchar" Nullable="false" MaxLength="50" />
+          <Property Name="Confirmation" Type="nvarchar" Nullable="false" MaxLength="50" />
         </EntityType>
         <EntityType Name="Products">
           <Key>
@@ -57,6 +157,14 @@
           <Property Name="ProductQuantity" Type="int" Nullable="false" />
           <Property Name="ProductDescription" Type="nvarchar" MaxLength="500" />
         </EntityType>
+        <EntityType Name="Shipments">
+          <Key>
+            <PropertyRef Name="ShipmentID" />
+          </Key>
+          <Property Name="ShipmentID" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="TrackingNumber" Type="nvarchar" Nullable="false" MaxLength="50" />
+          <Property Name="Carrier" Type="nvarchar" Nullable="false" MaxLength="50" />
+        </EntityType>
         <EntityType Name="Suppliers">
           <Key>
             <PropertyRef Name="SupplierID" />
@@ -66,6 +174,18 @@
           <Property Name="SupplierDescription" Type="nvarchar" MaxLength="500" />
           <Property Name="ImageURL" Type="nvarchar" MaxLength="100" />
         </EntityType>
+        <Association Name="FK_Addresses_Customers">
+          <End Role="Customers" Type="myStorefrontModel.Store.Customers" Multiplicity="1" />
+          <End Role="Addresses" Type="myStorefrontModel.Store.Addresses" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Customers">
+              <PropertyRef Name="CustomerID" />
+            </Principal>
+            <Dependent Role="Addresses">
+              <PropertyRef Name="CustomerID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_Categories_Categories">
           <End Role="Categories" Type="myStorefrontModel.Store.Categories" Multiplicity="0..1" />
           <End Role="Categories1" Type="myStorefrontModel.Store.Categories" Multiplicity="*" />
@@ -89,6 +209,78 @@
             </Principal>
             <Dependent Role="Images">
               <PropertyRef Name="ProductID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_OrderLines_Orders">
+          <End Role="Orders" Type="myStorefrontModel.Store.Orders" Multiplicity="1" />
+          <End Role="OrderLines" Type="myStorefrontModel.Store.OrderLines" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Orders">
+              <PropertyRef Name="OrderID" />
+            </Principal>
+            <Dependent Role="OrderLines">
+              <PropertyRef Name="OrderID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Orders_Addresses">
+          <End Role="Addresses" Type="myStorefrontModel.Store.Addresses" Multiplicity="0..1" />
+          <End Role="Orders" Type="myStorefrontModel.Store.Orders" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Addresses">
+              <PropertyRef Name="AddressID" />
+            </Principal>
+            <Dependent Role="Orders">
+              <PropertyRef Name="ShippingAddressID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Orders_Addresses1">
+          <End Role="Addresses" Type="myStorefrontModel.Store.Addresses" Multiplicity="0..1" />
+          <End Role="Orders" Type="myStorefrontModel.Store.Orders" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Addresses">
+              <PropertyRef Name="AddressID" />
+            </Principal>
+            <Dependent Role="Orders">
+              <PropertyRef Name="BillingAddressID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Orders_Customers">
+          <End Role="Customers" Type="myStorefrontModel.Store.Customers" Multiplicity="0..1" />
+          <End Role="Orders" Type="myStorefrontModel.Store.Orders" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Customers">
+              <PropertyRef Name="CustomerID" />
+            </Principal>
+            <Dependent Role="Orders">
+              <PropertyRef Name="CustomerID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Orders_Payments">
+          <End Role="Payments" Type="myStorefrontModel.Store.Payments" Multiplicity="0..1" />
+          <End Role="Orders" Type="myStorefrontModel.Store.Orders" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Payments">
+              <PropertyRef Name="PaymentID" />
+            </Principal>
+            <Dependent Role="Orders">
+              <PropertyRef Name="PaymentID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Orders_Shipments">
+          <End Role="Shipments" Type="myStorefrontModel.Store.Shipments" Multiplicity="0..1" />
+          <End Role="Orders" Type="myStorefrontModel.Store.Orders" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Shipments">
+              <PropertyRef Name="ShipmentID" />
+            </Principal>
+            <Dependent Role="Orders">
+              <PropertyRef Name="ShippingID" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -149,8 +341,42 @@
             <End Role="Product" EntitySet="Products" />
           </AssociationSet>
           <FunctionImport Name="GetProductsByCategoryID" EntitySet="Products" ReturnType="Collection(myStorefrontModel.Product)">
-            <Parameter Name="CategoryID" Mode="In" Type="Int32" />
+          <Parameter Name="CategoryID" Mode="In" Type="Int32" />
           </FunctionImport>
+          <EntitySet Name="Addresses" EntityType="myStorefrontModel.Address" />
+          <EntitySet Name="Customers" EntityType="myStorefrontModel.Customer" />
+          <EntitySet Name="OrderLines" EntityType="myStorefrontModel.OrderLine" />
+          <EntitySet Name="Orders" EntityType="myStorefrontModel.Order" />
+          <EntitySet Name="Payments" EntityType="myStorefrontModel.Payment" />
+          <EntitySet Name="Shipments" EntityType="myStorefrontModel.Shipment" />
+          <AssociationSet Name="FK_Addresses_Customers" Association="myStorefrontModel.FK_Addresses_Customers">
+            <End Role="Customer" EntitySet="Customers" />
+            <End Role="Address" EntitySet="Addresses" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Orders_Addresses" Association="myStorefrontModel.FK_Orders_Addresses">
+            <End Role="Address" EntitySet="Addresses" />
+            <End Role="Order" EntitySet="Orders" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Orders_Addresses1" Association="myStorefrontModel.FK_Orders_Addresses1">
+            <End Role="Address" EntitySet="Addresses" />
+            <End Role="Order" EntitySet="Orders" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Orders_Customers" Association="myStorefrontModel.FK_Orders_Customers">
+            <End Role="Customer" EntitySet="Customers" />
+            <End Role="Order" EntitySet="Orders" />
+          </AssociationSet>
+          <AssociationSet Name="FK_OrderLines_Orders" Association="myStorefrontModel.FK_OrderLines_Orders">
+            <End Role="Order" EntitySet="Orders" />
+            <End Role="OrderLine" EntitySet="OrderLines" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Orders_Payments" Association="myStorefrontModel.FK_Orders_Payments">
+            <End Role="Payment" EntitySet="Payments" />
+            <End Role="Order" EntitySet="Orders" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Orders_Shipments" Association="myStorefrontModel.FK_Orders_Shipments">
+            <End Role="Shipment" EntitySet="Shipments" />
+            <End Role="Order" EntitySet="Orders" />
+          </AssociationSet>
         </EntityContainer>
         <EntityType Name="Category">
           <Key>
@@ -262,6 +488,178 @@
           <Property Type="Int32" Name="ProductQuantity" Nullable="false" />
           <Property Type="String" Name="ProductDescription" Nullable="true" MaxLength="500" />
         </ComplexType>
+        <EntityType Name="Address">
+          <Key>
+            <PropertyRef Name="AddressID" />
+          </Key>
+          <Property Type="Int32" Name="AddressID" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Type="String" Name="Address1" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="Address2" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="City" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="State" Nullable="false" MaxLength="2" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="PostalCode" Nullable="false" MaxLength="10" FixedLength="false" Unicode="true" />
+          <Property Type="Int32" Name="CustomerID" Nullable="false" />
+          <Property Type="String" Name="Type" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="Notes" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="Name" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Customer" Relationship="myStorefrontModel.FK_Addresses_Customers" FromRole="Address" ToRole="Customer" />
+          <NavigationProperty Name="Orders" Relationship="myStorefrontModel.FK_Orders_Addresses" FromRole="Address" ToRole="Order" />
+          <NavigationProperty Name="Orders1" Relationship="myStorefrontModel.FK_Orders_Addresses1" FromRole="Address" ToRole="Order" />
+        </EntityType>
+        <EntityType Name="Customer">
+          <Key>
+            <PropertyRef Name="CustomerID" />
+          </Key>
+          <Property Type="String" Name="Username" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Type="Int32" Name="CustomerID" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Type="String" Name="FirstName" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="LastName" MaxLength="50" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Addresses" Relationship="myStorefrontModel.FK_Addresses_Customers" FromRole="Customer" ToRole="Address" />
+          <NavigationProperty Name="Orders" Relationship="myStorefrontModel.FK_Orders_Customers" FromRole="Customer" ToRole="Order" />
+        </EntityType>
+        <EntityType Name="OrderLine">
+          <Key>
+            <PropertyRef Name="OrderLineID" />
+          </Key>
+          <Property Type="Int32" Name="OrderLineID" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Type="Int32" Name="OrderID" Nullable="false" />
+          <Property Type="Int32" Name="ProductID" Nullable="false" />
+          <Property Type="Int32" Name="Quantity" Nullable="false" />
+          <Property Type="Decimal" Name="UnitPrice" Nullable="false" Precision="19" Scale="4" />
+          <Property Type="Decimal" Name="Subtotal" Precision="19" Scale="4" annotation:StoreGeneratedPattern="Computed" />
+          <NavigationProperty Name="Order" Relationship="myStorefrontModel.FK_OrderLines_Orders" FromRole="OrderLine" ToRole="Order" />
+        </EntityType>
+        <EntityType Name="Order">
+          <Key>
+            <PropertyRef Name="OrderID" />
+          </Key>
+          <Property Type="Int32" Name="OrderID" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Type="Int32" Name="ShippingAddressID" />
+          <Property Type="Int32" Name="PaymentID" />
+          <Property Type="Int32" Name="BillingAddressID" />
+          <Property Type="Int32" Name="ShippingID" />
+          <Property Type="Int32" Name="CustomerID" />
+          <Property Type="Decimal" Name="TotalPrice" Nullable="false" Precision="19" Scale="4" />
+          <Property Type="Decimal" Name="SalesTax" Nullable="false" Precision="19" Scale="4" />
+          <Property Type="Decimal" Name="Subtotal" Nullable="false" Precision="19" Scale="4" />
+          <Property Type="DateTime" Name="dtCreated" Nullable="false" Precision="3" />
+          <Property Type="DateTime" Name="dtCompleted" Precision="3" />
+          <Property Type="DateTime" Name="dtShipped" Precision="3" />
+          <Property Type="Decimal" Name="ShippingCost" Nullable="false" Precision="19" Scale="4" />
+          <Property Type="String" Name="Status" Nullable="false" MaxLength="10" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="ShippingAddress" Relationship="myStorefrontModel.FK_Orders_Addresses" FromRole="Order" ToRole="Address" />
+          <NavigationProperty Name="BillingAddress" Relationship="myStorefrontModel.FK_Orders_Addresses1" FromRole="Order" ToRole="Address" />
+          <NavigationProperty Name="Customer" Relationship="myStorefrontModel.FK_Orders_Customers" FromRole="Order" ToRole="Customer" />
+          <NavigationProperty Name="OrderLines" Relationship="myStorefrontModel.FK_OrderLines_Orders" FromRole="Order" ToRole="OrderLine" />
+          <NavigationProperty Name="Payment" Relationship="myStorefrontModel.FK_Orders_Payments" FromRole="Order" ToRole="Payment" />
+          <NavigationProperty Name="Shipment" Relationship="myStorefrontModel.FK_Orders_Shipments" FromRole="Order" ToRole="Shipment" />
+        </EntityType>
+        <EntityType Name="Payment">
+          <Key>
+            <PropertyRef Name="PaymentID" />
+          </Key>
+          <Property Type="Int32" Name="PaymentID" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Type="String" Name="CCNumber" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Type="Int32" Name="CCVC" Nullable="false" />
+          <Property Type="String" Name="CCExpiryMonth" Nullable="false" MaxLength="2" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="CCExpiry" Nullable="false" MaxLength="4" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="Name" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="Confirmation" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Orders" Relationship="myStorefrontModel.FK_Orders_Payments" FromRole="Payment" ToRole="Order" />
+        </EntityType>
+        <EntityType Name="Shipment">
+          <Key>
+            <PropertyRef Name="ShipmentID" />
+          </Key>
+          <Property Type="Int32" Name="ShipmentID" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Type="String" Name="TrackingNumber" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="Carrier" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Orders" Relationship="myStorefrontModel.FK_Orders_Shipments" FromRole="Shipment" ToRole="Order" />
+        </EntityType>
+        <Association Name="FK_Addresses_Customers">
+          <End Type="myStorefrontModel.Customer" Role="Customer" Multiplicity="1" />
+          <End Type="myStorefrontModel.Address" Role="Address" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Customer">
+              <PropertyRef Name="CustomerID" />
+            </Principal>
+            <Dependent Role="Address">
+              <PropertyRef Name="CustomerID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Orders_Addresses">
+          <End Type="myStorefrontModel.Address" Role="Address" Multiplicity="0..1" />
+          <End Type="myStorefrontModel.Order" Role="Order" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Address">
+              <PropertyRef Name="AddressID" />
+            </Principal>
+            <Dependent Role="Order">
+              <PropertyRef Name="ShippingAddressID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Orders_Addresses1">
+          <End Type="myStorefrontModel.Address" Role="Address" Multiplicity="0..1" />
+          <End Type="myStorefrontModel.Order" Role="Order" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Address">
+              <PropertyRef Name="AddressID" />
+            </Principal>
+            <Dependent Role="Order">
+              <PropertyRef Name="BillingAddressID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Orders_Customers">
+          <End Type="myStorefrontModel.Customer" Role="Customer" Multiplicity="0..1" />
+          <End Type="myStorefrontModel.Order" Role="Order" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Customer">
+              <PropertyRef Name="CustomerID" />
+            </Principal>
+            <Dependent Role="Order">
+              <PropertyRef Name="CustomerID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_OrderLines_Orders">
+          <End Type="myStorefrontModel.Order" Role="Order" Multiplicity="1" />
+          <End Type="myStorefrontModel.OrderLine" Role="OrderLine" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Order">
+              <PropertyRef Name="OrderID" />
+            </Principal>
+            <Dependent Role="OrderLine">
+              <PropertyRef Name="OrderID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Orders_Payments">
+          <End Type="myStorefrontModel.Payment" Role="Payment" Multiplicity="0..1" />
+          <End Type="myStorefrontModel.Order" Role="Order" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Payment">
+              <PropertyRef Name="PaymentID" />
+            </Principal>
+            <Dependent Role="Order">
+              <PropertyRef Name="PaymentID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Orders_Shipments">
+          <End Type="myStorefrontModel.Shipment" Role="Shipment" Multiplicity="0..1" />
+          <End Type="myStorefrontModel.Order" Role="Order" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Shipment">
+              <PropertyRef Name="ShipmentID" />
+            </Principal>
+            <Dependent Role="Order">
+              <PropertyRef Name="ShippingID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -313,6 +711,86 @@
           </EntitySetMapping>
           <FunctionImportMapping FunctionImportName="GetProductsByCategoryID" FunctionName="myStorefrontModel.Store.GetProductsByCategoryID">
           </FunctionImportMapping>
+          <EntitySetMapping Name="Addresses">
+            <EntityTypeMapping TypeName="myStorefrontModel.Address">
+              <MappingFragment StoreEntitySet="Addresses">
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Notes" ColumnName="Notes" />
+                <ScalarProperty Name="Type" ColumnName="Type" />
+                <ScalarProperty Name="CustomerID" ColumnName="CustomerID" />
+                <ScalarProperty Name="PostalCode" ColumnName="PostalCode" />
+                <ScalarProperty Name="State" ColumnName="State" />
+                <ScalarProperty Name="City" ColumnName="City" />
+                <ScalarProperty Name="Address2" ColumnName="Address2" />
+                <ScalarProperty Name="Address1" ColumnName="Address1" />
+                <ScalarProperty Name="AddressID" ColumnName="AddressID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Customers">
+            <EntityTypeMapping TypeName="myStorefrontModel.Customer">
+              <MappingFragment StoreEntitySet="Customers">
+                <ScalarProperty Name="LastName" ColumnName="LastName" />
+                <ScalarProperty Name="FirstName" ColumnName="FirstName" />
+                <ScalarProperty Name="CustomerID" ColumnName="CustomerID" />
+                <ScalarProperty Name="Username" ColumnName="Username" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="OrderLines">
+            <EntityTypeMapping TypeName="myStorefrontModel.OrderLine">
+              <MappingFragment StoreEntitySet="OrderLines">
+                <ScalarProperty Name="Subtotal" ColumnName="Subtotal" />
+                <ScalarProperty Name="UnitPrice" ColumnName="UnitPrice" />
+                <ScalarProperty Name="Quantity" ColumnName="Quantity" />
+                <ScalarProperty Name="ProductID" ColumnName="ProductID" />
+                <ScalarProperty Name="OrderID" ColumnName="OrderID" />
+                <ScalarProperty Name="OrderLineID" ColumnName="OrderLineID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Orders">
+            <EntityTypeMapping TypeName="myStorefrontModel.Order">
+              <MappingFragment StoreEntitySet="Orders">
+                <ScalarProperty Name="Status" ColumnName="Status" />
+                <ScalarProperty Name="ShippingCost" ColumnName="ShippingCost" />
+                <ScalarProperty Name="dtShipped" ColumnName="dtShipped" />
+                <ScalarProperty Name="dtCompleted" ColumnName="dtCompleted" />
+                <ScalarProperty Name="dtCreated" ColumnName="dtCreated" />
+                <ScalarProperty Name="Subtotal" ColumnName="Subtotal" />
+                <ScalarProperty Name="SalesTax" ColumnName="SalesTax" />
+                <ScalarProperty Name="TotalPrice" ColumnName="TotalPrice" />
+                <ScalarProperty Name="CustomerID" ColumnName="CustomerID" />
+                <ScalarProperty Name="ShippingID" ColumnName="ShippingID" />
+                <ScalarProperty Name="BillingAddressID" ColumnName="BillingAddressID" />
+                <ScalarProperty Name="PaymentID" ColumnName="PaymentID" />
+                <ScalarProperty Name="ShippingAddressID" ColumnName="ShippingAddressID" />
+                <ScalarProperty Name="OrderID" ColumnName="OrderID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Payments">
+            <EntityTypeMapping TypeName="myStorefrontModel.Payment">
+              <MappingFragment StoreEntitySet="Payments">
+                <ScalarProperty Name="Confirmation" ColumnName="Confirmation" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="CCExpiry" ColumnName="CCExpiry" />
+                <ScalarProperty Name="CCExpiryMonth" ColumnName="CCExpiryMonth" />
+                <ScalarProperty Name="CCVC" ColumnName="CCVC" />
+                <ScalarProperty Name="CCNumber" ColumnName="CCNumber" />
+                <ScalarProperty Name="PaymentID" ColumnName="PaymentID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Shipments">
+            <EntityTypeMapping TypeName="myStorefrontModel.Shipment">
+              <MappingFragment StoreEntitySet="Shipments">
+                <ScalarProperty Name="Carrier" ColumnName="Carrier" />
+                <ScalarProperty Name="TrackingNumber" ColumnName="TrackingNumber" />
+                <ScalarProperty Name="ShipmentID" ColumnName="ShipmentID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>

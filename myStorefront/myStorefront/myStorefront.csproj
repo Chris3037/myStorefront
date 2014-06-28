@@ -39,6 +39,9 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="AuthorizeNet">
+      <HintPath>..\packages\AuthorizeNet.1.8.0\lib\AuthorizeNet.dll</HintPath>
+    </Reference>
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System" />
     <Reference Include="System.Data" />
@@ -129,7 +132,9 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Controllers\AccountController.cs" />
+    <Compile Include="Controllers\BaseController.cs" />
     <Compile Include="Controllers\CategoryController.cs" />
+    <Compile Include="Controllers\CheckoutController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ImageController.cs" />
     <Compile Include="Controllers\ProductController.cs" />
@@ -138,13 +143,30 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Models\Address.cs">
+      <DependentUpon>ProductDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Controllers\CartController.cs" />
     <Compile Include="Models\Category.cs">
+      <DependentUpon>ProductDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\CheckoutModels.cs" />
+    <Compile Include="Models\Customer.cs">
       <DependentUpon>ProductDataModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\GetProductsByCategoryID_Result.cs">
       <DependentUpon>ProductDataModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\Image.cs">
+      <DependentUpon>ProductDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Order.cs">
+      <DependentUpon>ProductDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\OrderLine.cs">
+      <DependentUpon>ProductDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Payment.cs">
       <DependentUpon>ProductDataModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\Product.cs">
@@ -166,6 +188,9 @@
       <DependentUpon>ProductDataModel.edmx</DependentUpon>
     </Compile>
     <Compile Include="Models\ProductValidation.cs" />
+    <Compile Include="Models\Shipment.cs">
+      <DependentUpon>ProductDataModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\Supplier.cs">
       <DependentUpon>ProductDataModel.tt</DependentUpon>
     </Compile>
@@ -304,10 +329,12 @@
     <Content Include="Views\Account\Index.cshtml" />
     <Content Include="Views\Account\Register.cshtml" />
     <Content Include="Views\Shared\Login.cshtml" />
+    <Content Include="Views\Checkout\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="Content\images\" />
+    <Folder Include="Views\Cart\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config" />

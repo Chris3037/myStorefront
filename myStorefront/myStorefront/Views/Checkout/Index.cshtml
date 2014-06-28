@@ -1,0 +1,132 @@
+﻿@model myStorefront.Models.Order
+
+@{
+    ViewBag.Title = "Checkout";
+}
+
+<h2>Checkout</h2>
+
+@using (Html.BeginForm()) {
+    @Html.AntiForgeryToken()
+    @Html.ValidationSummary(true)
+
+    <fieldset>
+        <legend>Order</legend>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.ShippingAddressID)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.ShippingAddressID)
+            @Html.ValidationMessageFor(model => model.ShippingAddressID)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.PaymentID)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.PaymentID)
+            @Html.ValidationMessageFor(model => model.PaymentID)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.BillingAddressID)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.BillingAddressID)
+            @Html.ValidationMessageFor(model => model.BillingAddressID)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.ShippingID)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.ShippingID)
+            @Html.ValidationMessageFor(model => model.ShippingID)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.CustomerID)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.CustomerID)
+            @Html.ValidationMessageFor(model => model.CustomerID)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.TotalPrice)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.TotalPrice)
+            @Html.ValidationMessageFor(model => model.TotalPrice)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.SalesTax)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.SalesTax)
+            @Html.ValidationMessageFor(model => model.SalesTax)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.Subtotal)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.Subtotal)
+            @Html.ValidationMessageFor(model => model.Subtotal)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.dtCreated)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.dtCreated)
+            @Html.ValidationMessageFor(model => model.dtCreated)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.dtCompleted)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.dtCompleted)
+            @Html.ValidationMessageFor(model => model.dtCompleted)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.dtShipped)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.dtShipped)
+            @Html.ValidationMessageFor(model => model.dtShipped)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.ShippingCost)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.ShippingCost)
+            @Html.ValidationMessageFor(model => model.ShippingCost)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.Status)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.Status)
+            @Html.ValidationMessageFor(model => model.Status)
+        </div>
+
+        <p>
+            <input type="submit" value="Create" />
+        </p>
+    </fieldset>
+}
+
+<div>
+    @Html.ActionLink("Back to List", "Index")
+</div>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}
